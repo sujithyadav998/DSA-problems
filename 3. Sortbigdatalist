@@ -1,0 +1,15 @@
+
+vector<vector<int>> sortBigListDates(vector<vector<int>> &dates)
+{
+    for(int i = 0 ; i < dates.size() ; i++)
+    {
+        reverse(dates[i].begin() , dates[i].end()) ;
+    }
+    sort(dates.begin() , dates.end() ) ; 
+    for(int i = 0 ; i < dates.size() ; i++)
+    {
+        reverse(dates[i].begin() , dates[i].end()) ;
+    }
+    return dates  ;
+    // Write your code here
+}
