@@ -1,0 +1,15 @@
+int maxPathSum(TreeNode<int>* root)
+{
+	// Write your code here.
+    if(root == NULL)
+    {
+        return 0 ; 
+    }
+    if(root->val < 0)
+    {
+        return 0 ; 
+    }
+    int lsum = maxPathSum(root->left) ; 
+    int rsum = maxPathSum(root->right) ;
+    return root->val + max(lsum,rsum) ; 
+}
