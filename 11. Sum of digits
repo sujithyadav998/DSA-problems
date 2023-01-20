@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+int sumofDigits(int n)
+{
+	// Write your code here.
+    int s = 0 ; 
+    while(n > 0)
+    {
+        int r = n % 10 ; 
+        n = n / 10 ; 
+        s = s + r ;
+        int z = 0  ;
+        if(s >= 10)
+        {
+             z = s % 10 ; 
+            s = s / 10 ; 
+            
+            
+           
+        }
+        s = s + z ; 
+       
+        
+    }
+    return s;
+}
