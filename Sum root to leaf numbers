@@ -1,0 +1,40 @@
+class Solution {
+public:
+    void  helper(TreeNode* root , vector <int> &ans , vector < vector <int> >&res)
+    {
+        if(root == NULL)
+        {
+            return ; 
+        }
+       
+        if(root->right == NULL && root->left == NULL)
+        {
+            ans.push_back(root->val) ;
+            res.push_back(ans) ;
+            ans.pop_back() ;
+        }
+        ans.push_back(root->val) ;
+        helper(root->left , ans , res) ; 
+        helper(root->right , ans , res ) ;
+        ans.pop_back() ;
+    } 
+    int sumNumbers(TreeNode* root) {
+         vector < vector <int> > res ; 
+         vector <int> ans ; 
+         helper(root , ans , res) ;
+         int tsum = 0 ; 
+         for(int i = 0 ;  i < res.size() ; i++)
+         {
+             int s = 0 ; 
+             for(int j = 0 ; j < res[i].size() ; j++)
+             {
+
+                 s = s * 10 + res[i][j] ;  
+             }
+             tsum = tsum + s ; 
+             //cout << tsum ; 
+         }
+        return tsum; 
+        
+    }
+};
