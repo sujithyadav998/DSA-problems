@@ -1,0 +1,55 @@
+#include <bits/stdc++.h> 
+int firstMissing(int a[], int n)
+{
+    // Write your code here.
+    vector <int> arr ; 
+    for(int i = 0 ; i < n ; i++)
+    {
+        arr.push_back(a[i]) ;
+    }
+    int min = INT_MAX ; 
+    int max = INT_MIN  ;  
+    for(int i = 0 ; i < n ; i++)
+    {
+        if(arr[i] <= 0)
+        {
+            continue ; 
+        }
+        else
+        {
+            if(arr[i] < min)
+            {
+                min = arr[i] ;
+            }
+            if(arr[i] > max)
+            {
+                max = arr[i] ;
+            }
+        }
+         
+    }
+   // cout << max << min << endl ; 
+    if(min > 1)
+    {
+       // cout << " hey" << endl ; 
+        return 1 ; 
+    }
+    sort(arr.begin(),arr.end()) ;
+    for(int i = 1; i  < max ; i++)
+    {
+       
+        int x = 1  ; 
+     
+        if(binary_search(arr.begin() , arr.end() , i ) )
+        {
+            continue ; 
+        }
+        else
+        {
+            return i ; 
+        }
+    }
+    
+    return max + 1 ; 
+    
+}
