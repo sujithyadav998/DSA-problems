@@ -1,0 +1,30 @@
+BinaryTreeNode<int> *helper(vector<int> &tree, int n , int start , int end )
+{
+    if(start > end)
+    {
+       
+        return NULL  ; 
+    }
+    int maxind = -1 ; 
+    int max = -1; 
+    for(int i = start ; i <= end ; i++)
+    {
+        if(tree[i] > max)
+        {
+            max = tree[i] ;
+            maxind = i ; 
+        }
+    }
+    BinaryTreeNode<int> * root = new BinaryTreeNode<int>(tree[maxind]) ;
+    root->left = helper(tree , n , start , maxind - 1) ;
+    root->right = helper(tree , n , maxind + 1 , end) ;
+    return root ; 
+     
+}
+
+BinaryTreeNode<int> *constructMaximumBinaryTree(vector<int> &tree, int n) {
+    
+    return helper(tree , n , 0 , tree.size() - 1);
+    
+    // Write your code here.
+}
