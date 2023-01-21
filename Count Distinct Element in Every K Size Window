@@ -1,0 +1,56 @@
+#include <bits/stdc++.h> 
+vector<int> countDistinctElements(vector<int> &arr, int k) 
+{
+    vector <int> ans ; 
+    unordered_map <int, int> m ; 
+    int d = 0 ; 
+    int w = 0  ; 
+    // Write your code here
+	int i = 0 ; 
+    int n = arr.size() ; 
+    while( i < n)
+    {
+        if(i - w   + 1  > k )
+        {
+               
+               ans.push_back(d) ;
+               if (m[arr[w]] == 1) {
+                 d = d - 1;
+               }
+               m[arr[w]]-- ;
+              
+               w++ ; 
+
+
+               
+        }
+        else if(m.count(arr[i]) > 0 && m[arr[i]] == 1)
+        {
+
+            m[arr[i]]++ ; 
+            i++ ; 
+           
+        }
+        else
+        {
+          
+           if (m.count(arr[i]) == 0 ) {
+             d++;
+           }
+           else if(m[arr[i]] == 0)
+           { 
+               d++ ; 
+           }
+        
+
+              m[arr[i]]++ ; 
+              i++ ; 
+
+        
+
+           
+        }
+    }
+    ans.push_back(d) ;
+    return ans ; 
+}
