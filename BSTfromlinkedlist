@@ -1,0 +1,46 @@
+Node <int> *   midelement(Node <int> * head)
+{
+    if(head->next == NULL)
+    {
+        return head ; 
+    }
+    Node <int> * slow = head ; 
+    Node <int>  * fast = head ; 
+    Node <int> * prev = NULL ; 
+    while(fast != NULL && fast->next != NULL)
+    {
+        prev = slow ; 
+        slow = slow->next ; 
+       fast = fast->next->next ;
+        
+        
+        
+    }
+    prev->next = NULL ; 
+    return slow;
+}
+
+
+TreeNode<int>* sortedListToBST(Node<int>* head) 
+{
+    if(head == NULL)
+    {
+          
+        return NULL;
+        
+    }
+    if(head->next == NULL)
+    {
+         TreeNode<int>* root = new TreeNode <int>(head->data) ;
+        return root ; 
+    }
+    Node <int> * mid = midelement(head) ;
+    TreeNode<int>* root = new TreeNode <int>(mid->data) ;
+    root->left =  sortedListToBST( head ) ;
+    root->right =  sortedListToBST( mid->next)  ;
+    return root ; 
+    
+	// Write your code here.
+    
+}
+
