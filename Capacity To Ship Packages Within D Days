@@ -1,0 +1,54 @@
+class Solution {
+  public:
+   bool ispossible(int mid , int arr[] , int d, int n) 
+    {
+        bool check = true ; 
+        int s = 0 ;
+        d-- ;
+        for(int i = 0 ; i < n ; i++ )
+        {
+            if(arr[i] > mid)
+            {
+                return false ; 
+            }
+            else if(s + arr[i] <= mid)
+            {
+                s = s + arr[i] ; 
+            }
+            else
+            {
+               s = arr[i] ; 
+               d-- ; 
+            }
+        }
+        return d >= 0 ;
+    }
+    int leastWeightCapacity(int arr[], int N, int D) {
+        // code here
+        int l =  1 ; 
+        int w = 0 ; 
+        
+        for(int i = 0 ; i < N ; i++) {
+            w  = w + arr[i] ;
+          }
+         // cout << w << endl ; 
+          int r = w ;
+          
+        int mid ;
+        while(l <= r)
+        {
+             mid =( l + r) / 2 ; 
+            if(ispossible(mid ,arr , D , N))
+            {
+             // cout << mid << endl ;
+              r = mid - 1 ; 
+                
+            }
+            else
+            {
+                l = mid + 1 ; 
+            }
+        }
+        return l ; 
+    }
+};
