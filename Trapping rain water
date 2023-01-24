@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int trap(vector<int>& arr) {
+        int n = arr.size() ; 
+
+      vector <int> leftmax(n , 0) ;
+     vector <int> rightmax(n , 0) ;
+     for(int i = 0 ; i < n ; i++)
+     {
+         if(i == 0)
+         {
+             leftmax[i] = arr[i]  ; 
+             continue ; 
+             
+         }
+         if(arr[i] >= leftmax[i - 1])
+         {
+             leftmax[i] = arr[i] ;
+         }
+         else
+         {
+             leftmax[i] = leftmax[i - 1];
+         }
+     }
+     for(int i = n - 1 ; i >= 0 ; i--)
+     {
+         if(i == n - 1)
+         {
+             rightmax[i] = arr[i] ; 
+             continue ; 
+         }
+        if(arr[i] >= rightmax[i + 1])
+         {
+             rightmax[i] = arr[i] ;
+         }
+         else
+         {
+             rightmax[i] = rightmax[i + 1];
+         }
+
+     }
+     for(int i = 0 ; i < n  ; i++)
+     {
+        // cout << leftmax[i] << rightmax[i] << endl ; 
+     }
+     int c = 0 ; 
+     for(int i = 0 ; i < n ; i++)
+     {
+         c = c + min(leftmax[i],rightmax[i]) - arr[i] ;
+
+     }
+     return c ; 
+    }
+};
