@@ -1,0 +1,59 @@
+void merge(int arr[], int l, int m, int r)
+    {
+         // Your code here
+         int res[r - l + 1] ;
+         int a = l ; 
+         int b = m + 1 ; 
+         int ind = 0 ; 
+         while(a < m + 1 && b < r + 1)
+         {
+             if(arr[a] < arr[b])
+             {
+                 res[ind] = arr[a] ;
+                 a++ ;
+                 ind++;
+                 
+             }
+             else
+             {
+                 res[ind] = arr[b] ; 
+                 b++ ; 
+                 ind++ ; 
+             }
+         }
+         if( a < m + 1)
+         {
+             while( a < m + 1)
+             {
+                 res[ind] = arr[a] ;
+                 a++ ; 
+                 ind++ ; 
+             }
+         }
+         else
+         {
+             while(b < r + 1)
+             {
+                 res[ind] = arr[b] ; 
+                 b++ ; 
+                 ind++ ; 
+             }
+         }
+         int k,i  ;
+          for(k=0, i=l; k< r-l + 1; k++, i++) {
+            arr[i] = res[k];
+        }
+    }
+    public:
+    void mergeSort(int arr[], int l, int r)
+    {
+        //code here
+        if( l >= r)
+        {
+            return ;
+        }
+        int mid = (l + r) / 2 ;
+        mergeSort(arr , l , mid) ;
+        mergeSort(arr , mid + 1 , r) ;
+        merge(arr , l , mid , r) ;
+    }
