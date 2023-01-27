@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+          queue < pair <string , int> > q  ;
+          map < string , int > m ; 
+          for(int i = 0 ; i < wordList.size() ; i++)
+          {
+              m[wordList[i]]++ ; 
+          } 
+          int n = endWord.size() ; 
+          q.push({beginWord , 1}) ; 
+          
+          while(!q.empty())
+          {
+              
+              string word = q.front().first; 
+
+              int dis = q.front().second ;
+              q.pop() ; 
+              string x = word ; 
+              for(int currind = 0 ; currind  <  n ; currind++)
+              {
+                for(int i = 'a' ; i <= 'z'; i++)
+                {
+                    x[currind] = i ; 
+                    
+                    if( m.count(x) > 0 && m[x] != -1 )
+                    {
+                        if(x == endWord)
+                    {
+                        return dis + 1 ; 
+                    }
+                        q.push({x , dis +  1 }) ; 
+                        m[x] = -1 ; 
+                    } 
+                    x = word ; 
+                }
+              }
+
+          }
+          return 0 ; 
+
+    }
+};
