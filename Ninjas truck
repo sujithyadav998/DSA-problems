@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+bool comp( vector <int> & a , vector<int> &b)
+{
+	return a[1]  > b[1] ; 
+}
+
+
+int ninjaTruck(vector<vector<int>> &box, int k)
+{
+	// Write your code here
+	sort(box.begin() , box.end() , comp) ;
+	int s = 0 ; 
+	for(int i = 0 ;  i < box.size() ; i++)
+	{
+		vector <int> bo = box[i] ;
+		//cout << bo[0] << " " <<  bo[1] << endl ; 
+		if(k > bo[0])
+		{
+			k = k - bo[0] ; 
+			s = s + bo[0] * bo[1] ;
+		}
+		else{
+			s = s + k * bo[1]; 
+			return s ; 
+		}
+	}
+	return s ; 
+}
