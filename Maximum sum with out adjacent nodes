@@ -1,0 +1,57 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include <unordered_map> 
+
+int helper(TreeNode <int> * root , unordered_map < TreeNode<int> * , int > &dp )
+{
+    if(root == NULL)
+    {
+        return 0 ; 
+    }
+    if(dp.count(root) > 0)
+    {
+        return dp[root] ;
+    }
+    int rr = 0  , rl = 0 , lr = 0 , ll = 0;
+    if(root->left != NULL)
+    {
+       ll =  helper(root->left->left ,dp)  ;
+       lr =   helper(root->left->right ,dp)  ;
+    }  
+    if(root->right != NULL)
+    {
+       rl =  helper(root->right->left , dp) ;
+       rr = helper(root->right->right , dp) ;
+    }
+    int include = ll + lr + rr + rl + root->data ;
+    int l = helper(root->left,dp) ;
+    int r = helper(root->right,dp) ;
+    return dp[root] = max(l + r , include) ;
+
+}
+int maximumSumOfNodes(TreeNode<int> *root)
+{
+	//    Write your code here
+    //include 
+    unordered_map < TreeNode<int> * , int > dp ; 
+    return helper(root , dp) ;
+
+}
