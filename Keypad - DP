@@ -1,0 +1,57 @@
+#include <bits/stdc++.h> 
+int helper(int x , int y , int n , vector < vector <int> > &keypad ,  vector < vector < vector <int> > >  &dp)
+{
+    int mod = 1e9 + 7 ; 
+    if(n == 0)
+    {
+        //cout << "bc" << x << y<< endl;
+        return 1 ; 
+    }
+  //  cout << "i" << " " <<  x << y << endl ;
+    int a[5] = {-1 , +1 , 0 , 0 , 0 } ;
+    int b[5] = {0 , 0 , +1 , -1 , 0} ;
+    int s = 0 ; 
+     if(dp[x][y][n] != -1)
+     {
+         return dp[x][y][n] ;
+     }
+    for(int i = 0 ; i  <  5; i++)
+    {
+       int xcor = x + a[i] ;
+       int ycor = y + b[i] ;
+       if(xcor < 4 && ycor < 3 &&  xcor >= 0 && ycor >= 0 && keypad[xcor][ycor] != 10 && keypad[xcor][ycor] != 11)
+       {
+           // cout << xcor << ycor << s << endl ;
+           s =( s  + helper(xcor ,  ycor , n - 1 , keypad,dp) ) % mod  ;
+          
+       } 
+    
+    }
+    return dp[x][y][n] = s; 
+}
+int generateNumbers(int n)
+{
+    
+    vector< vector <int> > keypad{
+      {1, 2, 3}, {4, 5, 6}, {7, 8, 9}, { 10, 0, 11 }
+    } ;
+     vector < vector < vector <int> > >  dp(4 , vector <vector <int> > (3 , vector <int> (n + 1 , -1)) ) ; 
+     int mod = 1e9 + 7 ; 
+    int c = 0 ; 
+    for(int i = 0 ; i < 3; i++)
+    {
+       for(int j = 0 ; j < 3 ; j++)
+       {
+           
+          c =  (c + helper(i , j ,n - 1 , keypad , dp)) % mod ;
+         // cout << i << j << c << endl ; 
+       }
+       //cout << i << j << c << endl ; 
+
+    }
+     c =  (c + helper(3 , 1 ,n - 1 , keypad , dp )) % mod ;
+      // c = helper(2 , 2 , n - 1 , keypad) ;
+    return c ; 
+
+    // Write your code here.
+}
