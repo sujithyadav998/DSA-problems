@@ -1,0 +1,59 @@
+/***************************************************
+  Following is the TreeNode Structure
+
+template <typename T>
+class TreeNode {
+   public:
+    T val;
+    TreeNode<T>* left;
+    TreeNode<T>* right;
+
+    TreeNode(T val) {
+        this->val = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+*****************************************************/
+bool issame(TreeNode<int> *T, TreeNode<int> *S)
+{
+    if(T == NULL && S == NULL)
+    {
+        return true ; 
+    }
+    else if(T == NULL || S == NULL){
+        return false;
+
+    }
+    
+     if(T->val != S->val)
+    {
+        return false ; 
+    }  
+
+    bool a = issame(T->left , S->left) ;
+    bool b = issame(T->right , S->right) ;
+    return a && b ; 
+}
+bool isSubtree(TreeNode<int> *T, TreeNode<int> *S)
+{
+    if(T == NULL)
+    {
+        return false ; 
+    }
+    if(T->val == S->val )
+    {
+        bool x =  issame(T , S) ; 
+        if(x == true)
+        {
+            return true ; 
+        }
+    }
+    bool a = isSubtree(T->left , S) ;
+    bool b = isSubtree(T->right , S
+    ) ;
+    return a || b ; 
+    
+    // Write your code here.
+}
