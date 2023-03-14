@@ -1,0 +1,21 @@
+ /*
+    Time Complexity: O(L)
+    Space Complexity: O(1)
+
+    Where L is the number of digits in number.
+*/
+
+int findRemainder(string str)
+{
+    // Initialize num with 0
+    int num = 0;
+
+    for (int i = 0; i < str.length(); i++)
+    {
+        // Modify num at each digit of number
+        num = (num * 10 + (str[i] - '0')) % 11;
+    }
+
+    // Return final remainder
+    return num;
+} 
