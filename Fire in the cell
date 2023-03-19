@@ -1,0 +1,73 @@
+#include <queue> 
+bool corner(int x  , int y, int n , int m)
+{
+    return (x == 0 && y== 0) || (x == 0 && y == m - 1) || (y == 0 && x ==n - 1) || (x == n - 1 && y == m - 1) ; 
+}
+int fireInTheCells(vector<vector<int>> &mat, int n, int m, int s, int t) {
+    // Write your code here.
+    queue < pair <int, pair <int, int >> > q ; 
+    for(int i = 0 ; i < n ; i++)
+    {
+        for(int j = 0 ; j < m ; j++)
+        {
+            if(mat[i][j] == 0)
+            {
+              q.push({0 , {i, j}});
+            }
+        }
+    }
+    vector < vector <int> > time(n ,vector <int> (m ,0))  ;   ; 
+    vector <vector <int> > vis(n ,vector <int> (m ,0))  ; 
+    while(!q.empty())
+    {
+        pair <int, pair <int, int >> f = q.front() ;
+        int curtime =   f.first ; 
+        int x = f.second.first ;
+        int y = f.second.second ;
+        vis[x][y] = 1; 
+        time[x][y] = curtime ;
+        int xcor[4] = {1, 0 , -1,0};
+        int ycor[4] = {0 , 1, 0 , -1} ;
+        q.pop() ;
+        for(int i = 0 ; i < 4 ; i++)
+        {
+            int a = x + xcor[i] ;
+            int b = y + ycor[i] ;
+            if(a >= 0 && b >=0 && a < n && b < m && vis[a][b] == 0)
+            {
+                q.push({ curtime + 1,{a,b}}) ;
+                vis[a][b] = 1;
+            }
+
+        }
+    } 
+    queue < pair <int, pair <int, int >>> check ;
+    check.push({0 ,{s, t}});
+    while(!check.empty())
+    {
+       pair <int, pair <int, int >> f = check.front() ;
+       int curtime =   f.first ; 
+        int x = f.second.first ;
+        int y = f.second.second ;
+        if((x == 0 || x == n - 1 || y == 0  || y == m - 1 ) && !corner(x,y ,n , m))
+        {
+            return curtime ; 
+        }
+        int xcor[4] = {1, 0 , -1,0};
+        int ycor[4] = {0 , 1, 0 , -1} ;
+        check.pop() ;
+        for(int i = 0 ; i < 4 ; i++)
+        {
+            int a = x + xcor[i] ;
+            int b = y + ycor[i] ;
+            if(a >= 0 && b >=0 && a < n && b < m && curtime + 1  < time[a][b])
+            {
+                check.push({curtime + 1,{a,b}}) ;
+               
+            }
+
+        }
+
+    }
+    return -1; 
+}
