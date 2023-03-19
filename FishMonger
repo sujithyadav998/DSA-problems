@@ -1,0 +1,47 @@
+#include <bits/stdc++.h> 
+#include <queue>
+int findToll(int n, int m, vector<vector<int>> &time, vector<vector<int>> &toll) 
+{
+    // Write your code here	
+
+     priority_queue < pair <int , pair <int, int> >  , vector <pair <int , pair <int, int> > > , greater <pair <int , pair <int, int> >>  > pq ; 
+     pq.push({0, {0,0}}) ;
+     vector < int > dis(n , 1e9) ; 
+     dis[0] = 0 ; 
+     int d = 0 ;
+     while(!pq.empty())
+     {
+       pair <int , pair <int, int> > t = pq.top() ;
+       int tl = t.first ; 
+       int tm = t.second.first ; 
+       int node = t.second.second ;
+       if(node == )
+       //cout << tl <<" " << tm << " " << node << endl ;
+       pq.pop() ;
+       for(int i = 0 ; i < n ; i++)
+       {
+           if(i == node)
+           {
+               continue ; 
+           }
+           int rtime = tm + time[node][i] ;
+           int rtoll = tl  + toll[node][i] ;
+           if(rtime > m || rtoll > dis[i] )
+           {
+               continue ; 
+           }
+           else{
+             pq.push({rtoll, {rtime, i}});
+             dis[i] = rtoll;
+           }
+       }
+
+      if(dis[n - 1] == 1e9)
+      {
+          return -1 ; 
+      }
+       
+     }
+     return dis[n - 1];
+
+}
