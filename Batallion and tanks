@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+
+
+bool ispossible((vector<int> &battalion, int n, int m)
+{
+	int c = 0  ;
+	for(int i = 0 ; i < )
+}
+
+double getMinimumRatio(vector<int> &battalion, int n, int m)
+{
+	int m = 0;
+	for(int i =0 ; i < n ;i++)
+	{
+        m = max(battalion[i],m) ;
+	}
+    double l = 1 ;
+    double r = m ;
+	while(l < r)
+	{
+         double mid = (l + r) / 2 ; 
+
+	}
+}
