@@ -1,0 +1,133 @@
+// #include <bits/stdc++.h> 
+// string getbinary(int a)
+// {
+//     string s = "" ;
+//     while(a != 0)
+//     {
+//          int r = a % 2 ; 
+//          if(r == 1)
+//          {
+//              s = "1" + s ; 
+//          }
+//          else
+//          {
+//              s = "0" + s ; 
+//          }
+//          a = a/2 ; 
+//     }
+//     return s ; 
+// }
+// int flipBit(int n){
+//     // Write your code here.
+//     string a = getbinary(n) ;
+//    // cout << a << endl ;
+//     int ind = 0  ;
+//     int lz  = 0 ; 
+//     int res = 0 ; 
+//     int zc = 0 ;
+//     int oc = 0 ; 
+//     bool zi = false; 
+
+
+//     while(ind < a.size())
+//     {
+//         if(a[ind] == '0')
+//         {
+//             zi = true ;
+        
+//            if(zc == 1)
+//            {
+//                ind = lz + 1 ; 
+//                oc = 0 ; 
+//                zc = 0 ;
+             
+//            } 
+          
+//              zc++;
+//              lz =ind ; 
+        
+
+//         }
+//         else
+//         {
+//             oc++ ; 
+//         }
+//        res = max(res , oc) ;
+//        ind++ ; 
+        
+//     }
+//     if(!zi)
+//     return res;
+//     return res  + 1 ;
+
+// }
+/*
+    Time Complexity: O(logN)
+    Space Complexity: O(logN)
+
+    Where 'N' is the given number.
+*/
+
+int flipBit(int a) {
+    string binaryRepr = "";
+
+    while (a) {
+        if (a % 2) {
+            binaryRepr += "1";
+        } else {
+            binaryRepr += "0";
+        }
+        a /= 2;
+    }
+
+    reverse(binaryRepr.begin(), binaryRepr.end());
+
+    int count = 0;
+    int n = binaryRepr.length();
+
+    for (int i = 0; i < n; i++) {
+        if (binaryRepr[i] == '0') {
+            count += 1;
+        }
+    }
+
+    // Handling edge cases.
+    if (count == 0) {
+        return 1;
+    } else if (count == n) {
+        return n;
+    }
+
+    int maxConsecutiveOnes = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (binaryRepr[i] == '0') {
+            int presentMax = 1;
+
+            // Counting towards left.
+            for (int j = i - 1; j >= 0; j--) {
+                if (binaryRepr[j] == '1') {
+                    presentMax += 1;
+                } else {
+                    break;
+                }
+            }
+
+            // Counting towards right.
+            for (int k = i + 1; k < n; k++) {
+                if (binaryRepr[k] == '1') {
+                    presentMax += 1;
+                } else {
+                    break;
+                }
+            }
+            
+            if (presentMax > maxConsecutiveOnes) {
+                maxConsecutiveOnes = presentMax;
+            }
+        }
+    }
+
+    return maxConsecutiveOnes;
+
+}
