@@ -1,0 +1,76 @@
+class Solution {
+public:
+    bool isvalid(int i , int j , vector <string> &board)
+    {
+        //leftrow
+        int  n = board.size() ;
+        for(int k = j; k >= 0 ; k--)
+        {
+            if(board[i][k]  == 'Q')
+            return false; 
+        }
+        //upper diagnol
+        int a = i ; 
+        int b = j ; 
+        while(a >= 0  && b >= 0)
+        {
+            if(board[a][b]  == 'Q')
+            return false; 
+
+            a-- ;
+            b-- ;
+
+            
+        }
+
+        //lower diagnol
+        a = i ;
+        b =  j ;
+        while(a < n && b >= 0)
+        {
+           if(board[a][b]  == 'Q')
+            return false; 
+
+            a++ ;
+            b-- ;
+        }
+
+        return true ;
+    }
+    void helper(vector <string> &board , int col , vector <vector <string> > &ans , int n)
+    {
+        if(col == n )
+        {
+            ans.push_back(board) ;
+
+        }
+        for(int row =  0 ; row < n ; row++ )
+        {
+           
+             bool a =   isvalid(row , col, board) ;
+             if(a)
+             {
+                board[row][col] = 'Q' ;
+                helper(board, col + 1, ans , n) ; 
+                board[row][col] = '.' ; 
+             }
+          
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+
+        vector <vector <string> > ans ; 
+        vector <string> board ; 
+        string s(n,'.') ;
+        for(int i = 0 ; i< n ; i++)
+        {
+            board.push_back(s) ;
+        }
+        helper(board , 0 , ans , n) ;
+        return ans ; 
+
+
+
+        
+    }
+};
