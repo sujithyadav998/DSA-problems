@@ -1,0 +1,68 @@
+class Solution {
+public:
+    double knightProbability(int n, int k, int row, int column) {
+
+        vector < vector <double> >  orginal(n , vector <double>(n , 0.0)) ;  
+        orginal[row][column] = 1 ; 
+        
+        vector < vector <double> >  duplicate(n , vector <double>(n , 0.0)) ; 
+        //duplicate = orginal ; 
+
+        int rowoffset[] = {-2,-2,-1,-1,2,2,1,1};
+        int coloffset[] = {1,-1,2,-2,1,-1,2,-2};
+        
+         while(k != 0 )
+         {
+
+
+
+            for(int i = 0 ; i < n ; i++)
+            {
+                for(int j = 0 ; j < n ; j++)
+                {
+                    if(orginal[i][j] != 0 )
+                    {
+                      
+                        for(int w = 0 ; w < 8 ; w++)
+                        {
+
+                               int xcor = i + rowoffset[w] ;
+                               int ycor = j + coloffset[w] ;
+                               if(xcor < n && xcor >=0 && ycor >= 0 && ycor < n )
+                               {
+                                   duplicate[xcor][ycor] = duplicate[xcor][ycor] +  (orginal[i][j]/8.0) ; 
+                               }
+
+
+
+
+                        }
+
+
+                    
+                    }
+                }
+            }
+
+
+
+            
+            
+            orginal = duplicate ; 
+             fill(duplicate.begin(),duplicate.end(),vector<double>(n,0.0));
+
+
+             k  = k - 1 ; 
+                
+    }
+    double tp = 0.0 ; 
+    for(int i = 0 ; i  < n ; i++)
+    {
+        for(int j = 0 ; j < n ; j++)
+        {
+            tp = tp + orginal[i][j] ;
+        }
+    }
+    return tp ; 
+    }
+};
