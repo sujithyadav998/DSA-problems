@@ -1,0 +1,136 @@
+/*
+    Time complexity: O(N)
+    Space complexity: O(N)
+
+    where 'N' is the number of nodes in the given binary tree 'T'.
+*/
+
+#include <string.h>
+
+// Function to return in-order traversal of the tree in a string.
+void computeLPSArray(string pat, int M, int lps[]) {
+
+    // Length of the previous longest prefix suffix.
+    int len = 0;
+    int i = 1;
+
+    // lps[0] is always 0.
+    lps[0] = 0;
+
+    // The loop calculates lps[i] for i = 1 to M-1.
+    while (i < M) {
+
+        if (pat[i] == pat[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if (len != 0) {
+                len = lps[len - 1];
+
+            // Also, note that we do not increment i here.
+            } else {
+                lps[i] = len;
+                i++;
+            }
+        }
+    }
+}
+
+bool KMPSearch(string pat, string txt) {
+
+    int M = pat.length();
+    int N = txt.length();
+
+    // Create lps[] that will hold the longest prefix suffix values for pattern.
+    int lps[M];
+    int j = 0; // index for pat[].
+
+    // Preprocess the pattern (calculate lps[] array).
+    computeLPSArray(pat, M, lps);
+
+    // Index for txt.
+    int i = 0;
+    while (i < N) {
+        if (pat[j] == txt[i]) {
+            j++;
+            i++;
+        }
+        if (j == M) {
+            return true;
+        }
+
+        // Mismatch after j matches.
+        else if (i < N && pat[j] != txt[i]) {
+
+            // Do not match lps[0..lps[j-1]] characters, they will match anyway.
+            if (j != 0) {
+                j = lps[j - 1];
+            } else {
+                i++;
+            }
+        }
+    }
+    
+    return false;
+}
+
+
+
+string inorder(TreeNode<int> *node)
+{
+    if (node == NULL)
+    {
+        return "NULL";
+    }
+
+    return inorder(node->left) + " " + to_string(node->val) + " " + inorder(node->right);
+}
+
+// Function to return post-order traversal of the tree in a string.
+string postorder(TreeNode<int> *node)
+{
+    if (node == NULL)
+    {
+        return "NULL";
+    }
+
+    return postorder(node->left) + " " + postorder(node->right) + " " + to_string(node->val);
+}
+
+// This function returns true if S is a subtree of T, otherwise false.
+bool isSubtree(TreeNode<int> *T, TreeNode<int> *S)
+{
+    // Base case: both trees are same.
+    if (T == S)
+    {
+        return true;
+    }
+
+    // Base case: if first tree is empty but second tree is non-empty.
+    if (T == NULL)
+    {
+        return false;
+    }
+
+    // Store in-order traversal of both trees in Tin and Sin respectively.
+    string Tin = inorder(T);
+    string Sin = inorder(S);
+
+    // Return false if Sin string is not a substring of Tin string.
+    if (!KMPSearch(Sin, Tin)) {
+            return false;
+    }
+    
+
+    // Store post-order traversal of both trees in Tpost and Spost respectively.
+    string Tpost = postorder(T);
+    string Spost = postorder(S);
+    
+    // Return false if Spost string is not a substring of Tpost string.
+    if (!KMPSearch(Spost, Tpost)) {
+            return false;
+        }
+
+    return true;
+}
