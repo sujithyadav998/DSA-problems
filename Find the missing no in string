@@ -1,0 +1,73 @@
+#include <bits/stdc++.h> 
+
+string missingNumbe(string s) 
+{
+    // Write your code here.
+     string res = "-1" ; 
+     int n = s.size() ; 
+     for(int l = 1  ; l <= min(6 , n);l++)
+     {
+         string tres = "-1" ; 
+         string cur = s.substr(0, l) ;
+        
+         string temp = s.substr(l  , s.size() - l) ; 
+         int c = 0 ; 
+         int x = stoi(cur) ;
+         int nxt = x + 1   ; 
+         string next =to_string(nxt ) ; 
+         int i = l ; 
+          while(i < n)
+          {
+             string a = s.substr(i , next.size()) ;
+             //cout << a << " " << next << endl ; 
+             if(a == next)
+             {
+                  i = i + next.size() ; 
+                 nxt++  ;
+                 next =to_string(nxt ) ; 
+                 
+
+             }
+             else{
+
+                    nxt++  ;
+                    string t =to_string(nxt ) ; 
+                    a = s.substr(i , t.size()) ;
+                   // cout << a << "000" << t << endl ; 
+                    c++ ; 
+                    if(a != t || c > 1)
+                    {
+                        // if(l == 3)
+                        // {
+                        //     cout << a << endl ; 
+                        // }
+                        //cout << a << t << endl ;  
+                        tres = "-1" ; 
+                        break ; 
+                    }
+                    
+                    tres = next ; 
+                     i = i + t.size() ; 
+                    nxt++  ;
+                    next =to_string(nxt ) ;
+                     
+                   
+             }
+          }
+
+         if(tres != "-1")
+         {
+             res = tres ;
+             break ; 
+         }
+
+     }
+     return res ; 
+}
+int missingNumber(const string& str)
+{
+    // Code here
+    string s = str ; 
+    string a =  missingNumbe(s) ;
+    return stoi(a) ;
+}
