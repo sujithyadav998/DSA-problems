@@ -1,0 +1,30 @@
+class Solution{
+    
+public:
+    Node* sortList(Node* head)
+    {
+        // Your Code Here
+        Node * rhead = head ; 
+        Node * prev = NULL ; 
+        while(head != NULL)
+        {
+            if(head->data >= 0 || prev == NULL)
+            {
+                prev = head ; 
+                head = head->next ; 
+            }
+            else if(prev != NULL)
+            {
+                prev->next = head->next ; 
+                head->next = rhead ; 
+                rhead = head ; 
+                head = prev->next ; 
+            
+                
+            }
+
+        }
+        return rhead ; 
+    }
+    
+};
