@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+void helper(int i , vector <int> v , vector <int> &temp , vector <vector <int> > &ans)
+{
+    if(i == v.size())
+    {
+        ans.push_back(temp) ;
+        return  ; 
+    }
+    temp.push_back(v[i]) ; 
+    helper(i + 1   , v , temp , ans) ;
+    temp.pop_back() ;
+    helper(i + 1 , v , temp  , ans) ;
+}
+vector<vector<int>> pwset(vector<int>v)
+{
+    //Write your code here
+    vector <int> t ; 
+    vector <vector <int> > ans ; 
+    helper(0 , v , t, ans) ;
+    return ans ; 
+
+    
+}
