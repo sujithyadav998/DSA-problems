@@ -1,0 +1,32 @@
+class Solution{
+public:
+    
+    int countBits(int N){
+        // code here
+        if(N == 0)
+        {
+            return 0 ; 
+        }
+        if(N == 1)
+        {
+            return 1 ; 
+        }
+        int a = 2; 
+        int x = 1  ; 
+        while(a * 2 <= N)
+        {
+          a = a * 2 ; 
+          x++  ; 
+          
+        }
+        int bitstilla = (a/2) * x ; 
+        
+        int MSBaftera =N - a + 1 ; 
+        int aftera = countBits(N - a) ;
+        
+        return bitstilla + MSBaftera + aftera  ; 
+
+        
+        
+    }
+};
