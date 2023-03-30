@@ -1,0 +1,50 @@
+#include <bits/stdc++.h> 
+int height(int is , int ie , int ls , int le ,vector<int>& inorder, vector<int>& levelorder,vector <int>&pos )
+{
+	if(is >= ie)
+	{
+		return 0 ;
+	}
+	
+	int ind  =  ls ; 
+	int rootind  ; 
+	bool found = false; 
+	
+	// while(ind < le)
+	// {
+	// 	for(int i = is ; i <= ie ; i++)
+	// 	{
+	// 		if(inorder[i] == levelorder[ind])
+	// 		{
+    //               rootind = i;
+	// 			  found = true ;  
+	// 			  break ;   
+	// 		}
+			
+	// 	}
+	// 	if(found)
+	// 	break  ;
+	// 	ind++ ; 
+	// }
+	 rootind  = pos[levelorder[ind]] ;
+	 if(rootind >= is && rootind <= ie)
+	 {
+		 found = true ; 
+	 }
+	if(found == false)
+	{
+		return height(is , ie  , ls  + 1, le  , inorder, levelorder,pos) ;
+	}
+	int lh = height(is , rootind - 1 , ind + 1 , le , inorder , levelorder,pos) + 1 ;
+	int rh = height(rootind + 1 , ie , ind + 1 , le , inorder , levelorder,pos) + 1;
+	return max(lh , rh) ;
+}
+int heightOfTheTree(vector<int>& inorder, vector<int>& levelorder, int N){
+	// Write your code here.
+	vector <int>pos(N + 1 , 0)   ;
+	for(int i = 0 ; i < N ; i++)
+	{
+		pos[inorder[i]] = i ; 
+	} 
+	return height(0 , N - 1, 0 , N - 1 , inorder , levelorder,pos) ;
+}
