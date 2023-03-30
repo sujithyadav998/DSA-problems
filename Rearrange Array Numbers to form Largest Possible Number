@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+#include <string>
+bool compare(int a , int b)
+{
+    string s1 = to_string(a) ; 
+    string s2 = to_string(b) ;
+
+    return s1 + s2 > s2 + s1 ; 
+    
+        
+
+
+}
+
+
+
+
+string formLargestPossibleNumber(int arr[], int n) 
+{
+    // Write your code here.
+    sort(arr , arr + n , compare) ;
+    string res="" ;
+    for(int i = 0  ; i < n ; i++)
+    {
+        res = res + to_string(arr[i]) ;
+    }
+    return res ;
+    
+}
