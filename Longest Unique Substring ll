@@ -1,0 +1,47 @@
+#include <bits/stdc++.h> 
+string longestUniqueSubstring(string &str, int n)
+{
+    // Write your code here.
+    int w = 0; 
+    int ind = 0 ;
+    
+    int si = 0  ; 
+    int ei = 0 ; 
+    map <char,int> m ; 
+    while(ind < n)
+    {
+        char ch = str[ind] ;
+        if(m.count(str[ind]) > 0 && m[ch] != -1)
+        {
+           
+            //cout << "window chaged" << endl ;
+           // cout << ch << endl ;
+            for(int i = w ; i < m[ch] ; i++)
+            {
+                m[str[i]] = -1 ; 
+            }
+             w = m[ch] + 1 ;
+            m[ch] = ind ; 
+
+
+
+        }
+        else
+        {
+           // cout << ch << endl ; 
+            m[ch] = ind ; 
+        }
+
+       
+        if(ind - w + 1 > ei - si + 1)
+        {
+            ei = ind ; 
+            si = w; 
+        }
+         ind++ ; 
+
+
+    }
+    string res = str.substr(si , ei - si + 1) ;
+    return res; 
+}
