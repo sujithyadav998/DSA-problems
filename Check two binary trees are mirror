@@ -1,0 +1,28 @@
+bool helper(BinaryTreeNode<int> *root1, BinaryTreeNode<int> *root2)
+{
+    if(root1 == NULL && root2 == NULL)
+    {
+        return true ; 
+    }
+    else if(root1 == NULL){
+        return false ; 
+    }
+    else if(root2 == NULL)
+    {
+        return false ; 
+    }
+    if(root1->data != root2->data)
+    {
+        return false; 
+    }
+   bool a =  helper(root1->left ,root2->right);
+   bool b = helper(root1->right , root2->left) ;
+   return a && b ;
+   
+}
+bool areMirror(BinaryTreeNode<int> *root1, BinaryTreeNode<int> *root2)
+{
+    // Write Your code here
+    return helper(root1,root2);
+
+}
