@@ -1,0 +1,50 @@
+TreeNode<int> *constructTreeHelper(vector<int> &pre, vector<char> &typeNL, int &index_ptr, int &n)
+{
+    // Store the current value of index in pre[].
+    int index = index_ptr;
+
+    if (index == n)
+    {
+        return NULL;
+    }
+
+    /*
+        Allocate memory for this node and 
+        increment index for subsequent recursive calls.
+    */
+    TreeNode<int> *temp = new TreeNode<int>(pre[index]);
+
+    (index_ptr)++;
+
+    /*
+        If this is an internal node, construct left 
+        and right subtrees and link the subtrees.
+    */
+    if (typeNL[index] == 'N')
+    {
+        temp->left = constructTreeHelper(pre, typeNL, index_ptr, n);
+        temp->right = constructTreeHelper(pre, typeNL, index_ptr, n);
+    }
+
+    return temp;
+}
+
+TreeNode<int> *constructTree(vector<int> &pre, vector<char> &typeNL, int &n)
+{
+    /*
+        Index pointer is used to update index values in recursive calls,
+        index must be initially passed as 0.
+    */
+    int index = 0;
+
+    return constructTreeHelper(pre, typeNL, index, n);
+}
+
+TreeNode<int> *constructSBT(vector<int> &pre, vector<char> &typeNL)
+{
+    int n = pre.size();
+
+    TreeNode<int> *root = constructTree(pre, typeNL, n);
+
+    return root;
+}
