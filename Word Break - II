@@ -1,0 +1,62 @@
+class Solution {
+public:
+#include <bits/stdc++.h> 
+void helper( int ind , string s , string &sentence , map <string , int > &dict , vector <string> &ans , vector < vector <string> > &res)
+{
+    //cout << s << endl ;
+    if(ind == sentence.size())
+    {
+      
+       if(dict.count(s) > 0)
+       { 
+           ans.push_back(s) ;
+           res.push_back(ans) ;
+           ans.pop_back() ;
+           
+       }
+       return ; 
+    }
+
+    if (dict.count(s) == 0) {
+      helper(ind + 1, s + sentence[ind], sentence, dict,ans , res);
+    }
+    else
+    {
+         ans.push_back(s) ;
+       //  cout << s << " " << sentence.substr(ind ,1) << endl ; 
+         helper(ind  + 1 , sentence.substr(ind ,1) ,sentence , dict , ans , res )  ; 
+         ans.pop_back() ;
+         helper(ind + 1, s + sentence[ind], sentence, dict,ans , res);
+
+         
+    }
+
+}
+vector<string> getAllValidSentences(string &sentence, vector<string> &dictionary)
+{
+    //  write your code here.
+    map <string , int> m ; 
+    for(int i = 0 ; i < dictionary.size() ; i++)
+    {
+       m[dictionary[i]]++ ; 
+    }
+    vector <string> ans ; 
+    vector < vector <string> > res ; 
+    helper(0 , "" , sentence , m , ans , res) ;
+    for(int i = 0 ; i < res.size() ; i++)
+    {
+        string   sen = "" ;
+        for(int j = 0 ; j < res[i].size() ; j++)
+        {
+            sen  = sen + res[i][j]  ; 
+            if(j !=  res[i].size() - 1)
+            sen = sen + " " ;
+        }
+        ans.push_back(sen) ;
+    }
+    return  ans ; 
+}
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        return getAllValidSentences(s , wordDict) ;
+    }
+};
