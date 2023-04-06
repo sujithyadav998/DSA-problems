@@ -1,0 +1,117 @@
+ #include <map>
+class Solution{
+    public:
+    /* Should return minimum distance between a and b
+    in a tree with given root*/
+   
+Node * findNode(Node * root , int target )
+    {
+        if(root == NULL)
+        {
+            return NULL; 
+        }
+        if(root->data == target)
+        {
+            return root; 
+        }
+        Node *  a = findNode(root->right , target)  ; 
+       Node * b = findNode(root->left , target )  ; 
+        
+        if(a == NULL)
+        return b ; 
+        else
+        return a ; 
+        
+        
+        
+}
+    int findDistanceBetweenNodes(Node *root, int node1, int node2)
+{
+    // Write your code here.
+     map < Node * , Node * > parent ;
+       queue < Node * > q ; 
+       q.push(root) ; 
+       while(!q.empty())
+       {
+           Node * f = q.front() ;
+           q.pop() ;
+           if(f->left != NULL)
+           {
+              q.push(f->left) ;
+              parent[f->left] = f ; 
+           }
+           if(f->right != NULL)
+           {
+              q.push(f->right) ;
+              parent[f->right] = f ; 
+           }
+
+       }
+       //finding target node
+       Node *  a =  findNode(root , node1) ;
+       if(a == NULL)
+       {
+           return -1 ; 
+       }
+       Node *  b =  findNode(root , node2) ;
+        if(b == NULL)
+        return -1 ; 
+       
+   
+       queue < Node * > qu ; 
+
+       //finding nodes at distance k 
+       qu.push(a) ;
+       int t = 0 ; 
+       map <Node *  , int> vis ;
+       vis[a] = 1; 
+       while(!qu.empty())
+       {
+            
+            
+             int siz = qu.size() ;
+            
+            
+           for(int i = 0 ; i < siz ; i++) 
+           {
+                Node* f = qu.front() ;
+             // cout << f->val << " " << siz << " " << t << endl ; 
+                qu.pop() ;
+                if(f->data == node2)
+                {
+                    
+                    return t  ;  
+                }
+                if(f->left != NULL &&  vis.count(f->left) == 0)
+                {
+                 // cout << f->left->val << endl  ; 
+
+                    qu.push(f->left) ;
+                    vis[f->left] = 1 ; 
+                }
+                if(f->right != NULL  &&  vis.count(f->right) == 0)
+                {
+                   //  cout << f->right->val << " r" << endl  ; 
+
+                    qu.push(f->right) ;
+                    vis[f->right] = 1; 
+                }
+                if (parent[f] != NULL && vis.count(parent[f]) == 0 && f != root) {
+                    // cout << parent[f] << endl ;
+                     // cout << parent[f] << "r" << endl  ; 
+
+                    qu.push(parent[f]);
+                    vis[parent[f]] = 1;
+                }
+           }
+          
+           t = t + 1 ; 
+             
+       }
+       return t - 1 ; 
+}
+    int findDist(Node* root, int a, int b) {
+        // Your code here
+        return  findDistanceBetweenNodes(root, a, b) ;
+    }
+};
