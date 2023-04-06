@@ -1,0 +1,51 @@
+int minimumCostOfBreaking(vector<int> X, vector<int> Y, int M, int N){
+        //Write your code here
+        sort(X.begin() , X.end() , greater<int>()) ; 
+        sort(Y.begin() , Y.end() , greater<int>() ) ; 
+        
+        int hp = 1 ; 
+        int vp = 1 ; 
+        int i = 0; 
+        int j = 0 ;
+        int c = 0 ; 
+        while(i < X.size() && j < Y.size())
+        {
+          //  cout << "v" <<  X[i] * vp << " " << Y[j] * hp << endl ;
+            if( X[i]  > Y[j] )
+            {
+                
+                c = c + X[i] * vp ; 
+                i++ ; 
+                hp++ ; 
+              // cout << "h" <<c << " " << vp - 1 << " " <<  hp - 1<<  endl ;
+            }
+            else
+            {
+                c = c + Y[j] * hp; 
+                j++ ; 
+                vp++ ; 
+              //  cout << "v" <<c  << " " << vp - 1 << " " <<  hp - 1<<   endl ;
+            }
+            
+            
+        }
+        if(i < X.size() )
+        {
+            while(i < X.size())
+            {
+                c = c + X[i] * vp ; 
+                i++ ; 
+                
+            }
+        }
+        if(j < Y.size())
+        {
+            while(j < Y.size())
+            {
+                c = c + Y[j] * hp ; 
+                j++ ; 
+                
+            }
+        }
+        return c ; 
+    }
