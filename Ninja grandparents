@@ -1,0 +1,49 @@
+void helper(TreeNode<int> *root , int &s)
+{
+
+  if(root == NULL)
+  {
+    return ;
+  }
+  if(root->data % 2 == 0)
+  {
+    if(root->left)
+    {
+       if(root->left->left)
+       {
+          s  = s + root->left->left->data ; 
+       }
+       if(root->left->right)
+       {
+          s = s + root->left->right->data ;
+       }
+    }
+    if(root->right)
+    {
+       
+       if(root->right->left)
+       {
+          s  = s + root->right->left->data ; 
+       }
+       if(root->right->right)
+       {
+          s = s + root->right->right->data ;
+       }
+    }
+
+  }
+
+  helper(root->left,s) ;
+  helper(root->right,s) ;
+}
+int ninjaGrandparents(TreeNode<int> *root)
+{
+    //    Write your code here
+    int s = 0 ; 
+    helper(root , s) ;
+    return s; 
+   
+
+
+    
+}
