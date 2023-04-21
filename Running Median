@@ -1,0 +1,59 @@
+class Solution
+{
+    public:
+    priority_queue <int> ls;
+   priority_queue<int, vector<int> , greater<int>> rs;
+    
+    //Function to insert heap.
+    void insertHeap(int &x)
+    {
+        bool l = true ; 
+        if(ls.size() == 0)
+        {
+            ls.push(x);
+            return ; 
+        }
+        if(x > ls.top())
+              l = false; 
+        if(l)
+        ls.push(x) ;
+        else
+        rs.push(x) ;
+        balanceHeaps() ; 
+        
+    }
+    
+    //Function to balance heaps.
+    void balanceHeaps()
+    {
+        if(ls.size() >  rs.size() + 1 )
+        {
+            int a = ls.top() ; 
+            rs.push(a) ; 
+            ls.pop() ; 
+        }
+        else if(rs.size()  > ls.size() + 1)
+        {
+             int a = rs.top() ; 
+             ls.push(a) ; 
+             rs.pop()  ;
+        } 
+    }
+    
+    //Function to return Median.
+    double getMedian()
+    {
+        if(ls.size() == rs.size())
+        {
+            return (ls.top() + rs.top()) / 2 ; 
+        }
+        else if(ls.size() > rs.size())
+        {
+            return ls.top() ; 
+        }
+        else
+        {
+            return rs.top() ; 
+        }
+    }
+};
