@@ -1,0 +1,60 @@
+#include <queue>
+
+    //Function to sort an array using quick sort algorithm.
+int partition (vector <int> &arr, int low, int high)
+    {
+       // Your code here
+       int i = low -  1; 
+       int pivot = arr[high] ;
+       for(int j = low  ;  j <= high - 1; j++)
+       {
+           if(arr[j] < pivot)
+           {
+               i++; 
+               swap(arr[i] , arr[j]);
+           }
+       }
+       swap(arr[high] , arr[i + 1]) ;
+       return i + 1; 
+}
+void quickSort1(vector <int> &arr , int low, int high , int k , int &ans)
+{
+        // code here
+        if(low > high)
+        {
+            return ; 
+        }
+        int ind = partition(arr , low , high ) ;
+	    //cout << ind << endl ;
+		if(ind == k)
+		{
+			//cout << ind ;
+			ans = arr[ind] ; 
+			return ; 
+
+		}
+		else if(ind > k)
+		{
+            quickSort1(arr , low , ind - 1 , k , ans) ; 
+		}
+        else
+		{
+        quickSort1(arr , ind + 1 , high , k,ans) ;
+		}
+        
+}
+    
+
+vector<int> kthSmallLarge(vector<int> &arr, int n, int k)
+{
+	// Write your code here.
+	vector <int> ans ; 
+	int ksmall = 0 ; 
+	int klarge = 0 ; 
+	quickSort1(arr, 0 , n - 1, k - 1 , ksmall ) ;
+	quickSort1(arr , 0 , n - 1  , n  - k  , klarge);
+	ans.push_back(ksmall) ;
+	ans.push_back(klarge) ;
+	return ans ; 
+	
+}
