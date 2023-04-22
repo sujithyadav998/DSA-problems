@@ -1,0 +1,87 @@
+class Node
+{
+    public : 
+    int key ; 
+    int val ; 
+    Node * next ; 
+    Node * prev ; 
+    Node(int k , int v)
+    {
+        key = k ; 
+        val = v ; 
+       
+    }
+
+};
+
+
+
+class LRUCache {
+public:
+    Node * head = new Node(-1 , -1) ; 
+    Node * tail = new Node(-1,-1) ; 
+    
+    int cap ;
+    unordered_map <int , Node *> m ; 
+
+    LRUCache(int capacity) {
+        head->next = tail ; 
+        tail->prev = head ; 
+        cap =  capacity ;
+    }
+    Node  *  addnode(int k , int v)
+    {
+       Node * hn = head->next ; 
+       Node *  newnode = new Node(k , v) ;
+       head->next = newnode; 
+       newnode->prev = head ; 
+      
+       hn->prev = newnode ; 
+       newnode->next = hn ; 
+       m[k] = newnode ; 
+       return newnode ; 
+    }
+    void DELNODE(Node * a)
+    {
+       Node *  nodeprev = a->prev ; 
+       Node *  nodenext = a->next ; 
+        nodeprev->next = nodenext ; 
+        nodenext->prev = nodeprev ; 
+    }
+    int get(int key) {
+
+        if(m.count(key) > 0)
+        {
+              int v = m[key]->val ; 
+              DELNODE(m[key]) ;
+              addnode(key ,v) ;
+             
+
+              return  m[key]->val ; 
+        }
+        else
+        {
+            return -1 ;
+        }
+    }
+    
+    void put(int key, int value) {
+          if(m.count(key) > 0)
+        {
+            DELNODE(m[key]) ;
+            m.erase(key) ;
+        }
+       
+        if(m.size() == cap)
+        {
+            m.erase(tail->prev->key) ;
+            DELNODE(tail->prev) ;
+            
+
+        }
+       
+       Node * a =  addnode(key , value) ;
+        
+        
+    }
+};
