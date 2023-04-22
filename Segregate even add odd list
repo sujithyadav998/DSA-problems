@@ -1,0 +1,60 @@
+Node* segregateEvenOdd(Node* head)
+{
+    // Write your code here
+	Node * ehead = NULL ; 
+	Node * etail = NULL ; 
+	Node * ohead = NULL ; 
+	Node * otail = NULL ;
+	while(head != NULL)
+	{
+		if(head->data % 2 == 0)
+		{
+			//cout << head->data  ;
+			Node * temp= head->next ; 
+			Node * newnode = head ; 
+			
+			if(ehead == NULL)
+			{
+				ehead = newnode ;
+				etail = newnode ; 
+
+			}
+			else
+			{
+				etail->next = newnode ; 
+				etail = newnode ; 
+			}
+			head = temp ; 
+		}
+		else
+		{
+			Node * newnode = head ; 
+			Node * temp= head->next ; 
+			if(ohead == NULL)
+			{
+				ohead = newnode ;
+				otail = newnode ; 
+
+			}
+			else
+			{
+				otail->next = newnode ; 
+				otail = newnode ; 
+			}
+			head = temp ; 
+		}
+		 
+	}
+	//cout << ehead->data ;
+	if(ehead == NULL)
+	{
+        return ohead ; 
+	}
+	if(ohead == NULL)
+	{
+		return ehead ; 
+	}
+	etail->next = ohead ; 
+	otail->next = NULL ;
+	return ehead ; 
+}
