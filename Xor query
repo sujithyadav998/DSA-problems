@@ -1,0 +1,47 @@
+#include <unordered_map>
+int helper(int sv , vector <int> adj[]  , unordered_map <int,int>&m)
+{
+    int res = sv ; 
+    for(auto itr : adj[sv])
+    {
+    
+      int a = helper(itr , adj , m) ;
+      res = res ^ a ; 
+
+    }
+    m[sv] = res ; 
+    return res  ;
+}
+
+
+vector<int> XORquery(int n, vector<vector<int>> &edges, int q, vector<int> &query) {
+    // Write your code here.
+    //construction of graph
+     vector <int> adj[n] ;
+     for(int i = 0 ; i < edges.size() ; i++)
+     {
+        adj[edges[i][0]].push_back(edges[i][1]);
+     }
+     
+     //mapping it with xor
+     
+     unordered_map <int,int> m; 
+     helper(0 , adj , m) ;
+    //  for(auto itr : m)
+    //  {
+    //      cout << itr.first << " " << itr.second << endl ; 
+    //  }
+
+      //getting ans
+       vector <int> ans ;  
+      for(int i = 0 ; i < query.size() ; i++)
+      {
+           ans.push_back(m[query[i]]) ; 
+      }
+     
+    
+     return  ans ; 
+
+
+
+}
