@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> 
+queue<int> reverseElements(queue<int> q, int k)
+{
+    // Write your code here.
+    stack <int> s; 
+    while(k)
+    {
+        int f = q.front();
+        q.pop();
+        s.push(f) ; 
+        k = k - 1;  
+     }
+    queue <int> temp = q ; 
+     while(!q.empty())
+     {
+         q.pop();
+     }
+     while(!s.empty())
+     {
+        q.push(s.top());
+        s.pop();
+     }
+     while(!temp.empty())
+     {
+         q.push(temp.front());
+         temp.pop() ;
+     }
+     return q ; 
+}
