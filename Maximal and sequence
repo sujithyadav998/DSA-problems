@@ -1,0 +1,109 @@
+#include <bits/stdc++.h>
+const int MOD = 1000000007; 
+int binaryExp(long long a, long long b)
+{
+    a = a % MOD;
+
+    // Calculate a^b using binary exponentiation.
+    long long res = 1;
+
+    while (b > 0)
+    {
+        if (b & 1)
+        {
+            res = (res * a) % MOD;
+        }
+        a = (a * a) % MOD;
+        b = b >> 1;
+    }
+
+    return res;
+}
+int factorial(int n)
+{
+    // Calculate factorial of 'n'.
+    long long ans = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        ans = (ans * i) % MOD;
+    }
+    return ans;
+}
+void constructmap(int ele , vector <  int > map[])
+{
+    int temp = ele ; 
+    int c = 1 ; 
+   
+    while(ele > 0)
+    {
+       int r = ele % 2 ;
+
+       if (r == 1) {
+        // cout << c << endl ;
+         map[c].push_back(temp) ;
+          
+       }
+       c++ ; 
+       ele = ele/2 ; 
+    }
+}
+int helper(vector <int> & arr ,int  k , int &sz) //30 * n * log(max(arr[i])) ;
+{
+   vector <int> map[31] ;
+   
+ 
+    for(int i = 0 ; i < arr.size() ; i++)
+    {
+       constructmap(arr[i] , map) ; //n * log(max(arr[i]))
+    }
+    for(int i = 30 ; i >= 1 ; i--)   //30 * n  ; 
+    {
+        //cout << map[30].size() << endl ;
+       // cout << i << " " << map[i].size() << endl ; 
+    
+        if(map[i].size() >= k)
+        {
+            
+             int a = map[i].size() ;
+             sz = min(sz , a) ; 
+             for(int j = 0  ; j < map[i].size() ; j++)
+             {
+                 map[i][j] = map[i][j] - pow(2, i - 1) ;
+             }
+             return  (helper(map[i] , k , sz) + pow(2 , i - 1)) ;
+        } 
+       
+
+    }
+    return 0  ; 
+}
+vector<int> maximalANDSubsequences(vector<int> &arr, int k)
+{
+    // Write your code here.
+    vector <int> ans ; 
+    int sz = 1e9  ;
+   int a = helper(arr , k , sz) ; //
+  // cout << a << endl ;
+    ans.push_back(a)  ;
+    if(sz  == 1e9)
+    {
+        sz = arr.size(); 
+    }
+    int m = sz ; 
+    int mFact = factorial(m);
+    int mMinusKFact = factorial(m - k);
+    int kFact = factorial(k);
+
+    int inverseOfmMinusKFact = binaryExp(mMinusKFact, MOD - 2);
+    int inverseOfkFact = binaryExp(kFact, MOD - 2);
+
+    int count = ((long long)mFact * inverseOfmMinusKFact) % MOD;
+
+    count = ((long long)count * inverseOfkFact) % MOD;
+
+   
+    ans.push_back(count) ; 
+    return ans ; 
+    
+    
+}
