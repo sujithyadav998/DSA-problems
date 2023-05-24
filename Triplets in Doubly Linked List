@@ -1,0 +1,59 @@
+#include <bits/stdc++.h> 
+/***********************************************
+
+    Following is the class structure of the Node class:
+
+    class DLLNode
+    {
+        public:
+        int data;
+        DLLNode *next;
+        DLLNode *prev;
+    };
+
+***********************************************/
+int countpairs(DLLNode * h ,DLLNode * t , int s)
+{
+    int c = 0 ;
+   // cout << h->data << " " << t->data << endl ;
+    while(h->data < t->data)
+    {
+    
+
+        if(h->data + t->data == s)
+        {
+           
+            
+            c++ ; 
+            h = h->next ; 
+            t = t->prev ; 
+        }
+        else if(h->data + t->data > s)
+        {
+           t = t->prev ;    
+        } 
+        else {
+            h = h->next ;
+        }
+    }
+    return c ; 
+}
+int countTriplets(DLLNode* head, int x)
+{
+    // WRITE YOUR CODE HERE
+    int c = 0  ; 
+    DLLNode * tail = head ; 
+    DLLNode * temp = head ;
+    while(tail->next != NULL)
+    {
+        tail =tail->next ;  
+    } 
+    while(temp->next  != NULL)
+    {
+        DLLNode * t = tail ;
+        c = c + countpairs(temp->next  , t , x - temp->data) ;
+        temp = temp->next  ;   
+        
+    }
+    return c;
+}  
