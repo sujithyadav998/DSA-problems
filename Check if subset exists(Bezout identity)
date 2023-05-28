@@ -1,0 +1,23 @@
+
+
+#include<algorithm>
+
+int subsetExists(vector < int > & arr) {
+    int n = arr.size();
+
+    // Set the variable gcdValue as ARR[0].
+    int gcdValue = arr[0];
+
+    // Traverse through the array ARR.
+    for (int i = 1; i < n; i++) {
+        // Update gcdValue with the greatest common divisor of gcdValue and ARR[i].
+        gcdValue = __gcd(gcdValue, arr[i]);
+    }
+
+    // Check if gcdValue is equal to 1, then return 1, Otherwise return 0.
+    if (gcdValue == 1) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
