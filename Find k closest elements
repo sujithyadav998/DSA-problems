@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        
+
+        int ind =  lower_bound(arr.begin() , arr.end() , x)  - arr.begin() ; 
+        
+        int a = ind - 1; 
+        int b = ind ; 
+        int reqn = k ; 
+        vector <int> ans ;
+         
+      
+    
+        
+       \
+
+        while(reqn != 0 )
+        {
+            int option1 = 1e9 ; 
+            int option2 = 1e9 ; 
+            if( a  >=  0)
+            {
+                option1  = abs(x - arr[a])  ; 
+            }
+            if(b  < arr.size())
+            {
+              option2 = abs(x - arr[b])  ; 
+            }
+            cout << option1 <<  " " << option2 << endl; 
+            if(option1 <= option2)
+            {
+                ans.push_back(arr[a ]) ; 
+                a-- ; 
+            }
+            else{
+                ans.push_back(arr[b ]) ; 
+                b++ ;
+            }
+            reqn-- ; 
+
+
+        }
+        sort(ans.begin(),ans.end()) ; 
+        return ans ; 
+    }
+};
