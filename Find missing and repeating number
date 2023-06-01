@@ -1,0 +1,31 @@
+class Solution{
+public:
+    vector<int> findTwoElement(vector<int> arr, int n) {
+        // code here
+        long long int x = 0 ; 
+        long long int y = 0 ; 
+        for(int i = 1 ; i <=  n ; i++)
+        {
+            x = x + i; 
+            y = y + arr[i - 1] ; 
+        }
+        long long int aminusb = y - x ; 
+        long long int xsq  = 0; 
+        long long int ysq = 0 ; 
+        for(int i = 1 ; i <=  n ; i++)
+        {
+            xsq = xsq + i * (long long int)i; 
+            ysq = ysq + arr[i - 1] * (long long int)arr[i - 1]; 
+        }
+        long long int asq_bsq  = ysq - xsq ;
+        long long int aplusb = asq_bsq / aminusb ; 
+        int a = (aplusb + aminusb)/2 ; 
+        int b = aplusb - a ; 
+        vector <int> ans ; 
+        ans.push_back(a);
+        ans.push_back(b) ;
+        return ans ; 
+        
+        
+    }
+};
